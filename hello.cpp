@@ -1,14 +1,16 @@
 
 #include <nan.h>
+#include <node.h>
 #include <fstream>
 #include <sstream>
 #include <string>
 #include <iostream>
 
+//using namespace v8;
 using namespace std;
 
+void Method(const v8::FunctionCallbackInfo<v8::Value>& args) {
 
-void Add(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 
 //  if (info.Length() < 2) {
 //    Nan::ThrowTypeError("Wrong number of arguments");
@@ -73,7 +75,27 @@ fstream z;
 z.open("/home/oleg/dogs.txt");
 
 
+  v8::Isolate* isolate = args.GetIsolate();
+//    v8::Local<String> retval = String::NewFromUtf8(isolate, "world");
+    v8::Local<v8::Array> a = v8::Array::New(isolate);
+
+
+
+
 for(std::vector<int>::size_type i = 0; i < v.size(); i++) {
+
+
+//    v8::Local<String> vvv = v[i];
+
+//    v8::Local<v8::String> hTextJS = v8::String::NewFromUtf8(v8::Isolate::GetCurrent(), v[i].c_str());
+
+//    a->Set(i, v8::String::NewFromUtf8(isolate, hTextJS));
+//    std::string vvv = v[i];
+
+
+//    v8::Local<v8::String> prop = v8::String(isolate, "dog");
+
+    a->Set(i, v8::String::NewFromUtf8(isolate, v[i].c_str()));
 
     int pos = ints[i][0];
     int len = ints[i][1];
@@ -87,27 +109,12 @@ for(std::vector<int>::size_type i = 0; i < v.size(); i++) {
 
   z.close();
 
-//    std::string* ret(v.begin(), v.end());
-
-  v8::Local<v8::Object> obj = Nan::New<v8::Object>();
-//  obj->Set(Nan::New("zzzzzz").ToLocalChecked(), info[0]->ToString());
-//    v8::Local<Value> argv[] = { Null(), v };
-    obj->Set(Nan::New("zzzzzz").ToLocalChecked(), info[0]->ToString());
-    info.GetReturnValue().Set(obj);
+    args.GetReturnValue().Set(a);
 
 }
 
-
-void Init(v8::Local<v8::Object> exports, v8::Local<v8::Object> module) {
-
-
-  exports->Set(Nan::New("hello").ToLocalChecked(),
-               Nan::New<v8::FunctionTemplate>(Add)->GetFunction());
-
-
-// module->Set(Nan::New("hello").ToLocalChecked(),
-//      Nan::New<v8::FunctionTemplate>(Method)->GetFunction());
-
+void init(v8::Local<v8::Object> exports) {
+NODE_SET_METHOD(exports, "hello", Method);
 }
 
-NODE_MODULE(hello, Init)
+NODE_MODULE(hello_addon, init)

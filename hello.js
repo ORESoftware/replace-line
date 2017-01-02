@@ -1,3 +1,9 @@
 var addon = require('./build/Release/hello.node');
 
-console.log(' => hello => ', addon.hello());
+
+const val = addon.hello();
+
+// val.forEach(function(a){
+//    console.log(a);
+// });
+console.log(' => hello => ', val);
