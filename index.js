@@ -7,3 +7,7 @@ const val = addon.hello();
 //    console.log(a);
 // });
 console.log(' => hello => ', val);
+
+
+
+module.exports = addon;
