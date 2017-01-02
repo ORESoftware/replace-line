@@ -1,0 +1,46 @@
+gyp info it worked if it ends with ok
+gyp info using node-gyp@3.4.0
+gyp info using node@4.2.6 | linux | x64
+gyp info spawn make
+gyp info spawn args [ 'BUILDTYPE=Release', '-C', 'build' ]
+make: Entering directory '/home/oleg/WebstormProjects/oresoftware/replace-line/build'
+  CXX(target) Release/obj.target/hello/hello.o
+../hello.cc: In function ‘Nan::NAN_METHOD_RETURN_TYPE Method(Nan::NAN_METHOD_ARGS_TYPE)’:
+../hello.cc:6:12: error: ‘NanScope’ was not declared in this scope
+   NanScope();
+            ^
+../hello.cc:7:18: error: ‘New’ is not a member of ‘v8::String’
+   NanReturnValue(String::New("world"));
+                  ^
+../hello.cc:7:38: error: ‘NanReturnValue’ was not declared in this scope
+   NanReturnValue(String::New("world"));
+                                      ^
+../hello.cc: In function ‘void Init(v8::Handle<v8::Object>)’:
+../hello.cc:11:33: error: ‘NanSymbol’ was not declared in this scope
+   exports->Set(NanSymbol("hello"), FunctionTemplate::New(Method)->GetFunction());
+                                 ^
+../hello.cc:11:64: error: no matching function for call to ‘v8::FunctionTemplate::New(Nan::NAN_METHOD_RETURN_TYPE (&)(Nan::NAN_METHOD_ARGS_TYPE))’
+   exports->Set(NanSymbol("hello"), FunctionTemplate::New(Method)->GetFunction());
+                                                                ^
+In file included from /home/oleg/.node-gyp/4.2.6/include/node/node.h:42:0,
+                 from ../node_modules/nan/nan.h:47,
+                 from ../hello.cc:1:
+/home/oleg/.node-gyp/4.2.6/include/node/v8.h:4349:34: note: candidate: static v8::Local<v8::FunctionTemplate> v8::FunctionTemplate::New(v8::Isolate*, v8::FunctionCallback, v8::Local<v8::Value>, v8::Local<v8::Signature>, int)
+   static Local<FunctionTemplate> New(
+                                  ^
+/home/oleg/.node-gyp/4.2.6/include/node/v8.h:4349:34: note:   no known conversion for argument 1 from ‘Nan::NAN_METHOD_RETURN_TYPE(Nan::NAN_METHOD_ARGS_TYPE) {aka void(const Nan::FunctionCallbackInfo<v8::Value>&)}’ to ‘v8::Isolate*’
+hello.target.mk:96: recipe for target 'Release/obj.target/hello/hello.o' failed
+make: *** [Release/obj.target/hello/hello.o] Error 1
+make: Leaving directory '/home/oleg/WebstormProjects/oresoftware/replace-line/build'
+gyp ERR! build error 
+gyp ERR! stack Error: `make` failed with exit code: 2
+gyp ERR! stack     at ChildProcess.onExit (/usr/local/lib/node_modules/node-gyp/lib/build.js:276:23)
+gyp ERR! stack     at emitTwo (events.js:87:13)
+gyp ERR! stack     at ChildProcess.emit (events.js:172:7)
+gyp ERR! stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:200:12)
+gyp ERR! System Linux 4.4.0-57-generic
+gyp ERR! command "/usr/bin/nodejs" "/usr/local/bin/node-gyp" "build"
+gyp ERR! cwd /home/oleg/WebstormProjects/oresoftware/replace-line
+gyp ERR! node -v v4.2.6
+gyp ERR! node-gyp -v v3.4.0
+gyp ERR! not ok 

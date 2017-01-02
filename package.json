@@ -1,0 +1,35 @@
+{
+  "name": "replace-line",
+  "gypfile": true,
+  "version": "0.0.1001",
+  "description": "Native code to replace matching line with blank space",
+  "main": "index.js",
+  "scripts": {
+    "test": "suman"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ORESoftware/replace-line.git"
+  },
+  "keywords": [
+    "native",
+    "c++",
+    "addon",
+    "readline",
+    "replace",
+    "line",
+    "tail",
+    "text",
+    "file"
+  ],
+  "author": "Olegzandr",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ORESoftware/replace-line/issues"
+  },
+  "homepage": "https://github.com/ORESoftware/replace-line#readme",
+  "dependencies": {
+    "bindings": "^1.2.1",
+    "nan": "^2.5.0"
+  }
+}
