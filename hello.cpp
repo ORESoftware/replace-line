@@ -98,8 +98,9 @@ while (getline(f, line) && index < count){
         index++;
        long position = f.tellp();
        v.push_back(str);
-        int len = str.length() + 1;
-       vector<int> c = {position - len,len};
+//        int len = str.length() + 1;
+        int len = str.length();
+       vector<int> c = {position - len -1,len};
        ints.push_back(c);
    }
 
@@ -138,6 +139,7 @@ for(std::vector<int>::size_type i = 0; i < v.size(); i++) {
 
      z.seekp (pos);
      string s(len, ' ');
+     s = s + "\n";
       z << s;
 
 }
