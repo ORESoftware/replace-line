@@ -1,0 +1,117 @@
+gyp info it worked if it ends with ok
+gyp info using node-gyp@3.4.0
+gyp info using node@4.2.6 | linux | x64
+gyp info spawn /usr/bin/python2
+gyp info spawn args [ '/usr/local/lib/node_modules/node-gyp/gyp/gyp_main.py',
+gyp info spawn args   'binding.gyp',
+gyp info spawn args   '-f',
+gyp info spawn args   'make',
+gyp info spawn args   '-I',
+gyp info spawn args   '/home/oleg/WebstormProjects/oresoftware/replace-line/build/config.gypi',
+gyp info spawn args   '-I',
+gyp info spawn args   '/usr/local/lib/node_modules/node-gyp/addon.gypi',
+gyp info spawn args   '-I',
+gyp info spawn args   '/home/oleg/.node-gyp/4.2.6/include/node/common.gypi',
+gyp info spawn args   '-Dlibrary=shared_library',
+gyp info spawn args   '-Dvisibility=default',
+gyp info spawn args   '-Dnode_root_dir=/home/oleg/.node-gyp/4.2.6',
+gyp info spawn args   '-Dnode_gyp_dir=/usr/local/lib/node_modules/node-gyp',
+gyp info spawn args   '-Dnode_lib_file=node.lib',
+gyp info spawn args   '-Dmodule_root_dir=/home/oleg/WebstormProjects/oresoftware/replace-line',
+gyp info spawn args   '--depth=.',
+gyp info spawn args   '--no-parallel',
+gyp info spawn args   '--generator-output',
+gyp info spawn args   'build',
+gyp info spawn args   '-Goutput_dir=.' ]
+gyp info spawn make
+gyp info spawn args [ 'BUILDTYPE=Release', '-C', 'build' ]
+make: Entering directory '/home/oleg/WebstormProjects/oresoftware/replace-line/build'
+  CXX(target) Release/obj.target/hello/hello.o
+../hello.cpp: In function ‘void Method(const v8::FunctionCallbackInfo<v8::Value>&)’:
+../hello.cpp:49:58: warning: comparison with string literal results in unspecified behaviour [-Waddress]
+     if (!args[2]->IsString() || (*args[2]->ToString() != "true" && *args[2]->ToString() != "false")) {
+                                                          ^
+../hello.cpp:49:58: error: comparison between distinct pointer types ‘v8::String*’ and ‘const char*’ lacks a cast [-fpermissive]
+../hello.cpp:49:92: warning: comparison with string literal results in unspecified behaviour [-Waddress]
+     if (!args[2]->IsString() || (*args[2]->ToString() != "true" && *args[2]->ToString() != "false")) {
+                                                                                            ^
+../hello.cpp:49:92: error: comparison between distinct pointer types ‘v8::String*’ and ‘const char*’ lacks a cast [-fpermissive]
+../hello.cpp:63:46: warning: comparison with string literal results in unspecified behaviour [-Waddress]
+     bool isReplace = *args[2]->ToString() == "false" ? false : true;
+                                              ^
+../hello.cpp:63:46: error: comparison between distinct pointer types ‘v8::String*’ and ‘const char*’ lacks a cast [-fpermissive]
+../hello.cpp:103:48: warning: ISO C++ says that these are ambiguous, even though the worst conversion for the first is better than the worst conversion for the second:
+         long old_offset = f.tellp()-str.length() -1;
+                                                ^
+In file included from /usr/include/c++/5/bits/char_traits.h:40:0,
+                 from /usr/include/c++/5/string:40,
+                 from /usr/include/c++/5/random:40,
+                 from /usr/include/c++/5/bits/stl_algo.h:66,
+                 from /usr/include/c++/5/algorithm:62,
+                 from ../node_modules/nan/nan.h:50,
+                 from ../hello.cpp:2:
+/usr/include/c++/5/bits/postypes.h:192:7: note: candidate 1: std::fpos<_StateT> std::fpos<_StateT>::operator-(std::streamoff) const [with _StateT = __mbstate_t; std::streamoff = long int]
+       operator-(streamoff __off) const
+       ^
+../hello.cpp:103:48: note: candidate 2: operator-(std::streamoff {aka long int}, std::__cxx11::basic_string<char>::size_type {aka long unsigned int}) <built-in>
+         long old_offset = f.tellp()-str.length() -1;
+                                                ^
+../hello.cpp:103:51: warning: ISO C++ says that these are ambiguous, even though the worst conversion for the first is better than the worst conversion for the second:
+         long old_offset = f.tellp()-str.length() -1;
+                                                   ^
+In file included from /usr/include/c++/5/bits/char_traits.h:40:0,
+                 from /usr/include/c++/5/string:40,
+                 from /usr/include/c++/5/random:40,
+                 from /usr/include/c++/5/bits/stl_algo.h:66,
+                 from /usr/include/c++/5/algorithm:62,
+                 from ../node_modules/nan/nan.h:50,
+                 from ../hello.cpp:2:
+/usr/include/c++/5/bits/postypes.h:192:7: note: candidate 1: std::fpos<_StateT> std::fpos<_StateT>::operator-(std::streamoff) const [with _StateT = __mbstate_t; std::streamoff = long int]
+       operator-(streamoff __off) const
+       ^
+../hello.cpp:103:51: note: candidate 2: operator-(std::streamoff {aka long int}, int) <built-in>
+         long old_offset = f.tellp()-str.length() -1;
+                                                   ^
+../hello.cpp:117:44: warning: narrowing conversion of ‘old_offset’ from ‘long int’ to ‘int’ inside { } [-Wnarrowing]
+             vector<int> c = {old_offset,len};
+                                            ^
+../hello.cpp:117:44: warning: narrowing conversion of ‘old_offset’ from ‘long int’ to ‘int’ inside { } [-Wnarrowing]
+../hello.cpp:117:44: warning: narrowing conversion of ‘len’ from ‘long int’ to ‘int’ inside { } [-Wnarrowing]
+../hello.cpp:117:44: warning: narrowing conversion of ‘len’ from ‘long int’ to ‘int’ inside { } [-Wnarrowing]
+../hello.cpp:196:34: warning: ISO C++ says that these are ambiguous, even though the worst conversion for the first is better than the worst conversion for the second:
+                 off = x.tellp()- leng;
+                                  ^
+In file included from /usr/include/c++/5/bits/char_traits.h:40:0,
+                 from /usr/include/c++/5/string:40,
+                 from /usr/include/c++/5/random:40,
+                 from /usr/include/c++/5/bits/stl_algo.h:66,
+                 from /usr/include/c++/5/algorithm:62,
+                 from ../node_modules/nan/nan.h:50,
+                 from ../hello.cpp:2:
+/usr/include/c++/5/bits/postypes.h:192:7: note: candidate 1: std::fpos<_StateT> std::fpos<_StateT>::operator-(std::streamoff) const [with _StateT = __mbstate_t; std::streamoff = long int]
+       operator-(streamoff __off) const
+       ^
+../hello.cpp:196:34: note: candidate 2: operator-(std::streamoff {aka long int}, int) <built-in>
+                 off = x.tellp()- leng;
+                                  ^
+../hello.cpp:65:9: warning: unused variable ‘priority’ [-Wunused-variable]
+     int priority = args[4]->IsUndefined() ? 0 : args[3]->ToNumber()->NumberValue();
+         ^
+../hello.cpp:66:9: warning: unused variable ‘priority_search_cap’ [-Wunused-variable]
+     int priority_search_cap = args[5]->IsUndefined() ? 20 : args[4]->ToNumber()->NumberValue();
+         ^
+hello.target.mk:96: recipe for target 'Release/obj.target/hello/hello.o' failed
+make: *** [Release/obj.target/hello/hello.o] Error 1
+make: Leaving directory '/home/oleg/WebstormProjects/oresoftware/replace-line/build'
+gyp ERR! build error 
+gyp ERR! stack Error: `make` failed with exit code: 2
+gyp ERR! stack     at ChildProcess.onExit (/usr/local/lib/node_modules/node-gyp/lib/build.js:276:23)
+gyp ERR! stack     at emitTwo (events.js:87:13)
+gyp ERR! stack     at ChildProcess.emit (events.js:172:7)
+gyp ERR! stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:200:12)
+gyp ERR! System Linux 4.4.0-57-generic
+gyp ERR! command "/usr/bin/nodejs" "/usr/local/bin/node-gyp" "rebuild"
+gyp ERR! cwd /home/oleg/WebstormProjects/oresoftware/replace-line
+gyp ERR! node -v v4.2.6
+gyp ERR! node-gyp -v v3.4.0
+gyp ERR! not ok 
