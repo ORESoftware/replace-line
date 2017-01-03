@@ -93,33 +93,14 @@ while (getline(f, line) && index < count){
      string str(line);
      std::smatch match;
 
-     long old_offset = f.tellp()-str.length() -1;
-
-     cout << "old offset " << old_offset << endl;
-
      if (std::regex_search(str, match, reg1) && match.size() > 0) {
 
         index++;
-       long new_offset = f.tellp() ;
-
-       char d = str[str.length() -1];
-
-       cout << " d " << d << endl;
-
-       if(d == '\n'){
-        cout << " bumping new_offset " << new_offset << endl;
-           new_offset--;
-       }
-       cout << " new_offset " << new_offset << endl;
-
+       long position = f.tellp();
        v.push_back(str);
-
-        if(old_offset > 1){
-           old_offset--;
-         }
-
-        long len = new_offset -old_offset-1;
-       vector<int> c = {old_offset,len};
+        int len = str.length() + 1;
+//        int len = str.length();
+       vector<int> c = {position - len,len};
        ints.push_back(c);
    }
 
@@ -165,59 +146,6 @@ for(std::vector<int>::size_type i = 0; i < v.size(); i++) {
 
 
   z.close();
-
-
-  fstream x;
-  x.open(*filepath, fstream::in);
-
-  int ind = 0;
-
-  int off = -1;
-  int leng = -1;
-
-  while (getline(x, line) && ind < 1){
-
-     string str(line);
-
-     char h = str[0];
-     char p = str[str.length()-1];
-
-       cout << " p " << p << endl;
-
-       bool hIsChar = std::isspace(static_cast<unsigned char>(h));
-       bool pIsChar = std::isspace(static_cast<unsigned char>(p));
-
-    if (hIsChar && !pIsChar) {
-        cout << " c is a space " << endl;
-        leng = str.length();
-         cout << " leng " << leng << endl;
-
-        off = x.tellp()- leng;
-
-        cout << " off " << off << endl;
-    }
-
-  }
-
-  x.close();
-
-
-  if(off > -1){
-
-  cout << " off is on " << endl;
-
-fstream m;
-m.open(*filepath);
-
-   m.seekp (off);
-     string xx(leng + 1, ' ');
-//     s = "\n" + s;
-      m << xx;
-
-    m.close();
-  }
-
-
 
     args.GetReturnValue().Set(a);
 
