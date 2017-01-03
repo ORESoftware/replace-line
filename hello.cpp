@@ -5,34 +5,75 @@
 #include <sstream>
 #include <string>
 #include <iostream>
+#include <regex>
+#include <regex.h>
 
 //using namespace v8;
 using namespace std;
 
+//logfile = sys.argv[1]
+//regex = json.loads(sys.argv[2]);
+//max = int(sys.argv[3])
+//priority = int(sys.argv[4])
+//priority_max = int(sys.argv[5])
+
+
 void Method(const v8::FunctionCallbackInfo<v8::Value>& args) {
 
+  if (args.Length() < 2) {
+    Nan::ThrowTypeError("Wrong number of arguments");
+    return;
+  }
 
-//  if (info.Length() < 2) {
-//    Nan::ThrowTypeError("Wrong number of arguments");
-//    return;
-//  }
-//
-//  if (!info[0]->IsNumber() || !info[1]->IsNumber()) {
-//    Nan::ThrowTypeError("Wrong arguments");
-//    return;
-//  }
-//
+fstream f;
+
+  if (!args[0]->IsString()) {
+    Nan::ThrowTypeError("First argument to 'replace-line' must be the absolute file path.");
+    return;
+  }
+
+  //infile.open("/home/oleg/dogs.txt", fstream::in | fstream::out);
+//  f.open("/home/oleg/dogs.txt", fstream::in);
+    v8::String::Utf8Value filepath(args[0]->ToString());
+    f.open(*filepath, fstream::in);
+
+
+
+//std::regex reg1;
+
+  if (!args[1]->IsString()) {
+    Nan::ThrowTypeError("Second argument to 'replace-line' must be a string regular expression.");
+    return;
+  }
+
+
+    v8::String::Utf8Value target(args[1]);
+    std::string trgt(*target);
+    std::regex reg1(trgt);
+
+//    int count = args[2]->ToNumber()->NumberValue();
+//    int priority = args[3]->ToNumber()->NumberValue();
+//    int priority_search_cap = args[4]->ToNumber()->NumberValue();
+
+    int count = 1;
+    int priority = args[3]->ToNumber()->NumberValue();
+    int priority_search_cap = args[4]->ToNumber()->NumberValue();
+
+    cout << " count => " << count << endl;
+    cout << " priority => " << priority << endl;
+    cout << " priority_search_cap => " << priority_search_cap << endl;
+
+
 //  double arg0 = info[0]->NumberValue();
 //  double arg1 = info[1]->NumberValue();
 //  v8::Local<v8::Number> num = Nan::New(arg0 + arg1);
 
 
-fstream f;
-//infile.open("/home/oleg/dogs.txt", fstream::in | fstream::out);
-f.open("/home/oleg/dogs.txt", fstream::in);
+
+
 
 if(f.fail()){
-  cerr << " infile fail" << endl;
+  cerr << " => 'replace-line' usage error =>  infile fail => path to file was likely invalid. " << endl;
   exit(1);
 }
 
@@ -45,12 +86,16 @@ vector<string> v;
 vector<vector<int>> ints;
 
 string line;
+int index = 0;
 
-while (std::getline(f, line)){
+while (getline(f, line) && index < count){
 
+     string str(line);
+     std::smatch match;
 
-   string str(line);
-   if(true){
+     if (std::regex_search(str, match, reg1) && match.size() > 0) {
+
+        index++;
 
        long position = f.tellp();
        cout << "tellp position is " << position << endl;
@@ -64,7 +109,6 @@ while (std::getline(f, line)){
        cout << " => line contains => " << line << endl;
        cout << " line length is " << len << endl;
 
-
    }
 
 }
@@ -72,7 +116,7 @@ while (std::getline(f, line)){
 f.close();
 
 fstream z;
-z.open("/home/oleg/dogs.txt");
+z.open(*filepath);
 
 
   v8::Isolate* isolate = args.GetIsolate();
