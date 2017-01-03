@@ -95,22 +95,10 @@ while (getline(f, line) && index < count){
 
      long old_offset = f.tellp()-str.length() -1;
 
-     cout << "old offset " << old_offset << endl;
-
      if (std::regex_search(str, match, reg1) && match.size() > 0) {
 
         index++;
-       long new_offset = f.tellp() ;
-
-       char d = str[str.length() -1];
-
-       cout << " d " << d << endl;
-
-       if(d == '\n'){
-        cout << " bumping new_offset " << new_offset << endl;
-           new_offset--;
-       }
-       cout << " new_offset " << new_offset << endl;
+       long new_offset = f.tellp();
 
        v.push_back(str);
 
@@ -182,19 +170,19 @@ for(std::vector<int>::size_type i = 0; i < v.size(); i++) {
      char h = str[0];
      char p = str[str.length()-1];
 
-       cout << " p " << p << endl;
+//       cout << " p " << p << endl;
 
        bool hIsChar = std::isspace(static_cast<unsigned char>(h));
        bool pIsChar = std::isspace(static_cast<unsigned char>(p));
 
     if (hIsChar && !pIsChar) {
-        cout << " c is a space " << endl;
+//        cout << " c is a space " << endl;
         leng = str.length();
-         cout << " leng " << leng << endl;
+//         cout << " leng " << leng << endl;
 
         off = x.tellp()- leng;
 
-        cout << " off " << off << endl;
+//        cout << " off " << off << endl;
     }
 
   }
@@ -204,7 +192,7 @@ for(std::vector<int>::size_type i = 0; i < v.size(); i++) {
 
   if(off > -1){
 
-  cout << " off is on " << endl;
+//  cout << " off is on " << endl;
 
 fstream m;
 m.open(*filepath);
