@@ -56,12 +56,12 @@ fstream f;
 //    int priority_search_cap = args[4]->ToNumber()->NumberValue();
 
     int count = 1;
-    int priority = args[3]->ToNumber()->NumberValue();
-    int priority_search_cap = args[4]->ToNumber()->NumberValue();
-
-    cout << " count => " << count << endl;
-    cout << " priority => " << priority << endl;
-    cout << " priority_search_cap => " << priority_search_cap << endl;
+//    int priority = args[3]->ToNumber()->NumberValue();
+//    int priority_search_cap = args[4]->ToNumber()->NumberValue();
+//
+//    cout << " count => " << count << endl;
+//    cout << " priority => " << priority << endl;
+//    cout << " priority_search_cap => " << priority_search_cap << endl;
 
 
 //  double arg0 = info[0]->NumberValue();
@@ -96,19 +96,11 @@ while (getline(f, line) && index < count){
      if (std::regex_search(str, match, reg1) && match.size() > 0) {
 
         index++;
-
        long position = f.tellp();
-       cout << "tellp position is " << position << endl;
-
        v.push_back(str);
         int len = str.length() + 1;
-
        vector<int> c = {position - len,len};
        ints.push_back(c);
-
-       cout << " => line contains => " << line << endl;
-       cout << " line length is " << len << endl;
-
    }
 
 }
