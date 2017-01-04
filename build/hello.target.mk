@@ -34,10 +34,10 @@ CFLAGS_CC_Debug := \
 	-std=gnu++0x
 
 INCS_Debug := \
-	-I/home/oleg/.node-gyp/4.2.6/include/node \
-	-I/home/oleg/.node-gyp/4.2.6/src \
-	-I/home/oleg/.node-gyp/4.2.6/deps/uv/include \
-	-I/home/oleg/.node-gyp/4.2.6/deps/v8/include \
+	-I/home/oleg/.node-gyp/7.2.1/include/node \
+	-I/home/oleg/.node-gyp/7.2.1/src \
+	-I/home/oleg/.node-gyp/7.2.1/deps/uv/include \
+	-I/home/oleg/.node-gyp/7.2.1/deps/v8/include \
 	-I$(srcdir)/node_modules/nan
 
 DEFS_Release := \
@@ -58,8 +58,6 @@ CFLAGS_Release := \
 	-Wno-unused-parameter \
 	-m64 \
 	-O3 \
-	-ffunction-sections \
-	-fdata-sections \
 	-fno-omit-frame-pointer
 
 # Flags passed to only C files.
@@ -72,10 +70,10 @@ CFLAGS_CC_Release := \
 	-std=gnu++0x
 
 INCS_Release := \
-	-I/home/oleg/.node-gyp/4.2.6/include/node \
-	-I/home/oleg/.node-gyp/4.2.6/src \
-	-I/home/oleg/.node-gyp/4.2.6/deps/uv/include \
-	-I/home/oleg/.node-gyp/4.2.6/deps/v8/include \
+	-I/home/oleg/.node-gyp/7.2.1/include/node \
+	-I/home/oleg/.node-gyp/7.2.1/src \
+	-I/home/oleg/.node-gyp/7.2.1/deps/uv/include \
+	-I/home/oleg/.node-gyp/7.2.1/deps/v8/include \
 	-I$(srcdir)/node_modules/nan
 
 OBJS := \
