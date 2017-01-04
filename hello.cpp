@@ -62,9 +62,9 @@ void Method(const v8::FunctionCallbackInfo<v8::Value>& args) {
 //    int priority_search_cap = args[4]->ToNumber()->NumberValue();
 
     bool isReplace = strcmp(*arg2, "true") == 0 ? true : false;
-    int count = args[3]->IsUndefined() ? 1 : args[2]->ToNumber()->NumberValue();
-    int priority = args[4]->IsUndefined() ? 0 : args[3]->ToNumber()->NumberValue();
-    int priority_search_cap = args[5]->IsUndefined() ? 20 : args[4]->ToNumber()->NumberValue();
+    int count = args[3]->IsUndefined() ? 1 : args[3]->ToNumber()->NumberValue();
+    int priority = args[4]->IsUndefined() ? 0 : args[4]->ToNumber()->NumberValue();
+    int priority_search_cap = args[5]->IsUndefined() ? 20 : args[5]->ToNumber()->NumberValue();
 
 //    int priority = args[3]->ToNumber()->NumberValue();
 //    int priority_search_cap = args[4]->ToNumber()->NumberValue();
@@ -96,6 +96,8 @@ void Method(const v8::FunctionCallbackInfo<v8::Value>& args) {
     string line;
     int index = 0;
 
+    cout << " count " << count << endl;
+
     while (getline(f, line) && index < count) {
 
         string str(line);
@@ -104,6 +106,8 @@ void Method(const v8::FunctionCallbackInfo<v8::Value>& args) {
         long old_offset = f.tellp()-str.length() -1;
 
         if (std::regex_search(str, match, reg1) && match.size() > 0) {
+
+            cout << " match " << line << endl;
 
             index++;
             long new_offset = f.tellp();
