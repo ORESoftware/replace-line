@@ -46,8 +46,8 @@ vector<regex> FindPriorityItems(int priority, vector<string> v, int count, int n
 
         for(std::vector<int>::size_type i = 0; i < v.size(); i++) {
              auto j = json::parse(trim(v[i]));
-             int pt = j['priority'];
-             string uidStr = j['uid'];
+             int pt = j["priority"];
+             string uidStr = j["uid"];
              std::regex reg1(uidStr);
              ints.push_back(std::make_tuple(pt,reg1));
         }
@@ -57,18 +57,21 @@ vector<regex> FindPriorityItems(int priority, vector<string> v, int count, int n
         //std::sort(begin(ints), end(ints), CustomSort());
         std::sort(ints.begin(), ints.end(), CustomSort());
 
+        int $match = 0;
         for(std::vector<int>::size_type i = 0; i < size; i++) {
 
             int $priority = std::get<0>(ints[i]);
+
+            cout << "priority => " << $priority << endl;
+
             regex $uid = std::get<1>(ints[i]);
-
-            cout << "$priority" << $priority << endl;
-
              // if we are below the count
-             if(size - i <= count){
+             if((size - i) <= count && $match < count){
+                 $match++;
                  ret.push_back($uid);
              }
-             else if($priority <= priority){
+             else if($priority <= priority && $match < count){
+                $match++;
                 ret.push_back($uid);
              }
 
@@ -127,15 +130,14 @@ void Method(const v8::FunctionCallbackInfo<v8::Value>& args) {
       v8::Local<v8::Array> input = v8::Local<v8::Array>::Cast(args[1]);
 
       vector<regex> inputRegexes;
-
-       int len = input->Length();
+      int len = input->Length();
 
       for(std::vector<int>::size_type i = 0; i < len; i++) {
 
          v8::String::Utf8Value target(input->Get(i));
          std::string trgt(*target);
          std::regex reg1(trgt);
-         inputRegexes[i] = reg1;
+         inputRegexes.push_back(reg1);
 
        }
 
@@ -156,14 +158,16 @@ void Method(const v8::FunctionCallbackInfo<v8::Value>& args) {
     //    int priority_search_cap = args[4]->ToNumber()->NumberValue();
 
     bool isReplace = strcmp(*arg2, "true") == 0 ? true : false;
-    int count = args[3]->IsUndefined() ? 1 : args[3]->ToNumber()->NumberValue();
-    int priority = args[4]->IsUndefined() ? 0 : args[4]->ToNumber()->NumberValue();
-    int priority_search_cap = args[5]->IsUndefined() ? 20 : args[5]->ToNumber()->NumberValue();
+//     cout << " isReplace " << isReplace << endl;
 
-    cout << " isReplace " << isReplace << endl;
-    cout << " count " << count << endl;
-    cout << " priority " << priority << endl;
-    cout << " priority_search_cap " << priority_search_cap << endl;
+    int count = args[3]->IsUndefined() ? 1 : args[3]->ToNumber()->NumberValue();
+//     cout << " count " << count << endl;
+
+    int priority = args[4]->IsUndefined() ? 0 : args[4]->ToNumber()->NumberValue();
+//     cout << " priority " << priority << endl;
+
+    int priority_search_cap = args[5]->IsUndefined() ? 20 : args[5]->ToNumber()->NumberValue();
+//    cout << " priority_search_cap " << priority_search_cap << endl;
 
     //    int priority = args[3]->ToNumber()->NumberValue();
     //    int priority_search_cap = args[4]->ToNumber()->NumberValue();
@@ -245,8 +249,6 @@ void Method(const v8::FunctionCallbackInfo<v8::Value>& args) {
 //        if (std::regex_search(str, match, reg1) && match.size() > 0) {
 
           if(MakeMatch(str,inputRegexes)){
-
-            cout << " match " << line << endl;
 
             index++;
             long new_offset = f.tellp();
