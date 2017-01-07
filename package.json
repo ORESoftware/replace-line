@@ -1,7 +1,7 @@
 {
   "name": "replace-line",
   "gypfile": true,
-  "version": "0.0.1012",
+  "version": "0.0.10121",
   "description": "Native code to replace matching line with blank space",
   "main": "index.js",
   "scripts": {

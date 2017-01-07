@@ -118,10 +118,10 @@ void Method(const v8::FunctionCallbackInfo<v8::Value>& args) {
 
     //std::regex reg1;
 
-    if (!args[1]->IsString()) {
-        Nan::ThrowTypeError("Second argument to 'replace-line' must be a string regular expression.");
-        return;
-    }
+//    if (!args[1]->IsString()) {
+//        Nan::ThrowTypeError("Second argument to 'replace-line' must be a string regular expression.");
+//        return;
+//    }
 
 
       v8::Local<v8::Array> input = v8::Local<v8::Array>::Cast(args[1]);
