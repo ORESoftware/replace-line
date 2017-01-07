@@ -1,1 +1,1 @@
-module.exports = require('./build/Release/hello.node');
+module.exports = require('./build/Release/run.node');
