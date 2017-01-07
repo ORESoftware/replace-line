@@ -15,11 +15,7 @@ using json = nlohmann::json;
 //using namespace v8;
 using namespace std;
 
-//logfile = sys.argv[1]
-//regex = json.loads(sys.argv[2]);
-//max = int(sys.argv[3])
-//priority = int(sys.argv[4])
-//priority_max = int(sys.argv[5])
+///////////////////////////////////////////////////////////////////////////////////////////////
 
 string trim(const string& str)
 {
@@ -81,8 +77,6 @@ vector<regex> FindPriorityItems(int priority, vector<string> v, int count, int n
 
 bool MakeMatch(std::string line, vector<regex> regexes){
 
-   bool ret = false;
-
    for(std::vector<int>::size_type i = 0; i < regexes.size(); i++) {
 
       std::smatch match;
@@ -94,8 +88,7 @@ bool MakeMatch(std::string line, vector<regex> regexes){
 
     }
 
-
-    return ret;
+    return false;
 }
 
 
@@ -174,9 +167,6 @@ void Method(const v8::FunctionCallbackInfo<v8::Value>& args) {
     //    cout << " priority => " << priority << endl;
     //    cout << " priority_search_cap => " << priority_search_cap << endl;
 
-    //  double arg0 = info[0]->NumberValue();
-    //  double arg1 = info[1]->NumberValue();
-    //  v8::Local<v8::Number> num = Nan::New(arg0 + arg1);
 
     fstream f;
     int index = 0;
