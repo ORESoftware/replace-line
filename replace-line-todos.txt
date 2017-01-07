@@ -15,3 +15,7 @@ https://github.com/nodejs/node-gyp/issues/17
 
 
 http://www.tutorialspoint.com/online_c_formatter.htm
+
+https://blog.scottfrees.com/how-not-to-access-node-js-from-c-worker-threads
+
+https://gist.github.com/dmh2000/9519489

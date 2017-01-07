@@ -1,8 +1,8 @@
 {
   "targets": [
     {
-      "target_name": "hello",
-      "sources": [ "hello.cpp" ],
+      "target_name": "run",
+      "sources": [ "run.cpp" ],
       "include_dirs": [
         "<!(node -e \"require('nan')\")"
       ],

@@ -40,7 +40,9 @@ vector<regex> FindPriorityItems(int priority, vector<string> v, int count, int n
        std::vector<regex> ret;
        std::vector<std::tuple<int, regex>> ints;
 
-        for(std::vector<int>::size_type i = 0; i < v.size(); i++) {
+       int sze = v.size();
+
+        for(std::vector<int>::size_type i = 0; ((unsigned)i) < ((unsigned)sze); i++) {
              auto j = json::parse(trim(v[i]));
              int pt = j["priority"];
              string uidStr = j["uid"];
@@ -54,17 +56,17 @@ vector<regex> FindPriorityItems(int priority, vector<string> v, int count, int n
         std::sort(ints.begin(), ints.end(), CustomSort());
 
         int $match = 0;
-        for(std::vector<int>::size_type i = 0; i < size; i++) {
+        for(std::vector<int>::size_type i = 0; ((unsigned)i) < ((unsigned)size); i++) {
 
             int $priority = std::get<0>(ints[i]);
 
             regex $uid = std::get<1>(ints[i]);
              // if we are below the count
-             if((size - i) <= count && $match < count){
+             if((size - ((unsigned)i)) <= ((unsigned)count) && ((unsigned)$match) < ((unsigned)count)){
                  $match++;
                  ret.push_back($uid);
              }
-             else if($priority <= priority && $match < count){
+             else if($priority <= priority && ((unsigned)$match) < ((unsigned)count)){
                 $match++;
                 ret.push_back($uid);
              }
@@ -77,7 +79,7 @@ vector<regex> FindPriorityItems(int priority, vector<string> v, int count, int n
 
 bool MakeMatch(std::string line, vector<regex> regexes){
 
-   for(std::vector<int>::size_type i = 0; i < regexes.size(); i++) {
+   for(std::vector<int>::size_type i = 0; ((unsigned)i) < regexes.size(); i++) {
 
       std::smatch match;
       regex r = regexes[i];
@@ -93,7 +95,7 @@ bool MakeMatch(std::string line, vector<regex> regexes){
 
 
 
-void Method(const v8::FunctionCallbackInfo<v8::Value>& args) {
+void run(const v8::FunctionCallbackInfo<v8::Value>& args) {
 
     if (args.Length() < 2) {
         Nan::ThrowTypeError("Wrong number of arguments");
@@ -123,7 +125,7 @@ void Method(const v8::FunctionCallbackInfo<v8::Value>& args) {
       vector<regex> inputRegexes;
       int len = input->Length();
 
-      for(std::vector<int>::size_type i = 0; i < len; i++) {
+      for(std::vector<int>::size_type i = 0; ((unsigned)i) < ((unsigned)len); i++) {
 
          v8::String::Utf8Value target(input->Get(i));
          std::string trgt(*target);
@@ -133,39 +135,26 @@ void Method(const v8::FunctionCallbackInfo<v8::Value>& args) {
        }
 
 
-//     v8::String::Utf8Value target(args[1]);
-//     std::string trgt(*target);
-//     std::regex reg1(trgt);
-
-
     v8::String::Utf8Value arg2(args[2]->ToString());
     if (strcmp(*arg2, "true") == 0 && strcmp(*arg2, "false") == 0) {
         Nan::ThrowTypeError("Third argument to 'replace-line' must be a string representing whether to find or replace.");
         return;
     }
 
-    //    int count = args[2]->ToNumber()->NumberValue();
-    //    int priority = args[3]->ToNumber()->NumberValue();
-    //    int priority_search_cap = args[4]->ToNumber()->NumberValue();
 
     bool isReplace = strcmp(*arg2, "true") == 0 ? true : false;
 //     cout << " isReplace " << isReplace << endl;
 
-    int count = args[3]->IsUndefined() ? 1 : args[3]->ToNumber()->NumberValue();
+    int count = args[3]->IsUndefined() ? 1 : args[3]->NumberValue();
 //     cout << " count " << count << endl;
 
-    int priority = args[4]->IsUndefined() ? 0 : args[4]->ToNumber()->NumberValue();
+    int priority = args[4]->IsUndefined() ? 0 : args[4]->NumberValue();
 //     cout << " priority " << priority << endl;
 
-    int priority_search_cap = args[5]->IsUndefined() ? 20 : args[5]->ToNumber()->NumberValue();
-//    cout << " priority_search_cap " << priority_search_cap << endl;
+    int priority_search_cap = args[5]->IsUndefined() ? 20 : args[5]->NumberValue();
 
-    //    int priority = args[3]->ToNumber()->NumberValue();
-    //    int priority_search_cap = args[4]->ToNumber()->NumberValue();
-    //
-    //    cout << " count => " << count << endl;
-    //    cout << " priority => " << priority << endl;
-    //    cout << " priority_search_cap => " << priority_search_cap << endl;
+    //  psc should be as large as count if count is bigger (should not happen often)
+    priority_search_cap = std::max(count,priority_search_cap);
 
 
     fstream f;
@@ -187,12 +176,10 @@ void Method(const v8::FunctionCallbackInfo<v8::Value>& args) {
         }
         vector<string> priorityMatches;
         string line;
-        while (getline(f, line) && index < priority_search_cap) {
+        while (getline(f, line) && ((unsigned)index) < ((unsigned)priority_search_cap)) {
 
             string str(line);
             std::smatch match;
-
-//            if (std::regex_search(str, match, reg1) && match.size() > 0) {
 
         if (MakeMatch(str, inputRegexes)) {
                 index++;
@@ -200,8 +187,6 @@ void Method(const v8::FunctionCallbackInfo<v8::Value>& args) {
             }
 
         }
-
-        //int priority, vector<string> v, int count, int numberOfRecursiveCalls
 
         inputRegexes = FindPriorityItems(priority, priorityMatches, count, 0);
         f.close();
@@ -227,19 +212,20 @@ void Method(const v8::FunctionCallbackInfo<v8::Value>& args) {
     string line;
     index = 0;
 
-    while (getline(f, line) && index < count) {
+    while (getline(f, line) && ((unsigned)index) < ((unsigned)count)) {
 
         string str(line);
         std::smatch match;
 
-        long old_offset = f.tellp()-str.length() -1;
+        int ln = str.length();
+        int tp = f.tellp();
 
-//        if (std::regex_search(str, match, reg1) && match.size() > 0) {
+        int old_offset =  tp - ln -1;
 
           if(MakeMatch(str,inputRegexes)){
 
             index++;
-            long new_offset = f.tellp();
+            int new_offset = f.tellp();
 
             v.push_back(str);
 
@@ -247,7 +233,7 @@ void Method(const v8::FunctionCallbackInfo<v8::Value>& args) {
                 old_offset--;
             }
 
-            long len = new_offset - old_offset - 1;
+            int len = new_offset - old_offset - 1;
             vector<int> c = {old_offset,len};
             ints.push_back(c);
         }
@@ -261,22 +247,11 @@ void Method(const v8::FunctionCallbackInfo<v8::Value>& args) {
 
 
     v8::Isolate* isolate = args.GetIsolate();
-//    v8::Local<String> retval = String::NewFromUtf8(isolate, "world");
     v8::Local<v8::Array> a = v8::Array::New(isolate);
 
+    int sze = v.size();
 
-    for(std::vector<int>::size_type i = 0; i < v.size(); i++) {
-
-
-//    v8::Local<String> vvv = v[i];
-
-//    v8::Local<v8::String> hTextJS = v8::String::NewFromUtf8(v8::Isolate::GetCurrent(), v[i].c_str());
-
-//    a->Set(i, v8::String::NewFromUtf8(isolate, hTextJS));
-//    std::string vvv = v[i];
-
-
-//    v8::Local<v8::String> prop = v8::String(isolate, "dog");
+    for(std::vector<int>::size_type i = 0; ((unsigned)i) < ((unsigned)sze); i++) {
 
         a->Set(i, v8::String::NewFromUtf8(isolate, v[i].c_str()));
 
@@ -308,7 +283,7 @@ void Method(const v8::FunctionCallbackInfo<v8::Value>& args) {
         int off = -1;
         int leng = -1;
 
-        while (getline(x, line) && ind < 1) {
+        while (getline(x, line) && ((unsigned)ind) < 1) {
 
             string str(line);
 
@@ -321,13 +296,10 @@ void Method(const v8::FunctionCallbackInfo<v8::Value>& args) {
             bool pIsChar = std::isspace(static_cast<unsigned char>(p));
 
             if (hIsChar && !pIsChar) {
-//        cout << " c is a space " << endl;
+                int tel = x.tellp();
                 leng = str.length();
-//         cout << " leng " << leng << endl;
+                off =  tel - leng;
 
-                off = x.tellp()- leng;
-
-//        cout << " off " << off << endl;
             }
 
         }
@@ -337,14 +309,13 @@ void Method(const v8::FunctionCallbackInfo<v8::Value>& args) {
 
         if(off > -1) {
 
-//  cout << " off is on " << endl;
 
             fstream m;
             m.open(*filepath);
 
             m.seekp (off);
             string xx(leng + 1, ' ');
-//     s = "\n" + s;
+
             m << xx;
 
             m.close();
@@ -359,7 +330,7 @@ void Method(const v8::FunctionCallbackInfo<v8::Value>& args) {
 }
 
 void init(v8::Local<v8::Object> exports) {
-    NODE_SET_METHOD(exports, "hello", Method);
+    NODE_SET_METHOD(exports, "run", run);
 }
 
-NODE_MODULE(hello_addon, init)
+NODE_MODULE(run, init)
