@@ -21,23 +21,26 @@ CFLAGS_Debug := \
 	-Wextra \
 	-Wno-unused-parameter \
 	-m64 \
+	-std=c++11 \
+	-std=c++11 \
 	-g \
 	-O0
 
 # Flags passed to only C files.
-CFLAGS_C_Debug :=
+CFLAGS_C_Debug := \
+	-std=c++11
 
 # Flags passed to only C++ files.
 CFLAGS_CC_Debug := \
 	-fno-rtti \
-	-fno-exceptions \
-	-std=gnu++0x
+	-std=gnu++0x \
+	-std=c++11
 
 INCS_Debug := \
-	-I/home/oleg/.node-gyp/7.2.1/include/node \
-	-I/home/oleg/.node-gyp/7.2.1/src \
-	-I/home/oleg/.node-gyp/7.2.1/deps/uv/include \
-	-I/home/oleg/.node-gyp/7.2.1/deps/v8/include \
+	-I/home/oleg/.node-gyp/4.2.6/include/node \
+	-I/home/oleg/.node-gyp/4.2.6/src \
+	-I/home/oleg/.node-gyp/4.2.6/deps/uv/include \
+	-I/home/oleg/.node-gyp/4.2.6/deps/v8/include \
 	-I$(srcdir)/node_modules/nan
 
 DEFS_Release := \
@@ -57,23 +60,28 @@ CFLAGS_Release := \
 	-Wextra \
 	-Wno-unused-parameter \
 	-m64 \
+	-std=c++11 \
+	-std=c++11 \
 	-O3 \
+	-ffunction-sections \
+	-fdata-sections \
 	-fno-omit-frame-pointer
 
 # Flags passed to only C files.
-CFLAGS_C_Release :=
+CFLAGS_C_Release := \
+	-std=c++11
 
 # Flags passed to only C++ files.
 CFLAGS_CC_Release := \
 	-fno-rtti \
-	-fno-exceptions \
-	-std=gnu++0x
+	-std=gnu++0x \
+	-std=c++11
 
 INCS_Release := \
-	-I/home/oleg/.node-gyp/7.2.1/include/node \
-	-I/home/oleg/.node-gyp/7.2.1/src \
-	-I/home/oleg/.node-gyp/7.2.1/deps/uv/include \
-	-I/home/oleg/.node-gyp/7.2.1/deps/v8/include \
+	-I/home/oleg/.node-gyp/4.2.6/include/node \
+	-I/home/oleg/.node-gyp/4.2.6/src \
+	-I/home/oleg/.node-gyp/4.2.6/deps/uv/include \
+	-I/home/oleg/.node-gyp/4.2.6/deps/v8/include \
 	-I$(srcdir)/node_modules/nan
 
 OBJS := \

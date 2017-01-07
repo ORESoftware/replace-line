@@ -39,9 +39,8 @@
     "v8_random_seed": 0,
     "v8_use_snapshot": "true",
     "want_separate_host_toolset": 0,
-    "nodedir": "/home/oleg/.node-gyp/7.2.1",
+    "nodedir": "/home/oleg/.node-gyp/4.2.6",
     "copy_dev_lib": "true",
-    "standalone_static_library": 1,
-    "target": "v7.2.1"
+    "standalone_static_library": 1
   }
 }

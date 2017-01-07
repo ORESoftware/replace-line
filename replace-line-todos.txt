@@ -11,3 +11,7 @@ https://github.com/nodejs/node/tree/master/src
 
 http://stackoverflow.com/questions/41436698/give-integers-a-default-value-if-they-are-initialized-as-empty
 
+https://github.com/nodejs/node-gyp/issues/17
+
+
+http://www.tutorialspoint.com/online_c_formatter.htm
