@@ -62,8 +62,6 @@ vector<regex> FindPriorityItems(int priority, vector<string> v, int count, int n
 
             int $priority = std::get<0>(ints[i]);
 
-            cout << "priority => " << $priority << endl;
-
             regex $uid = std::get<1>(ints[i]);
              // if we are below the count
              if((size - i) <= count && $match < count){
