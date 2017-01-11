@@ -29,16 +29,25 @@ string trim(const string& str)
 
 struct CustomSort{
 
-    bool operator()(tuple<int,regex> const &lhs, tuple<int,regex> const &rhs){
-        return std::get<0>(lhs) > std::get<0>(rhs);
+    bool operator()(tuple<int,regex,string> const &lhs, tuple<int,regex,string> const &rhs){
+
+        int lh_priority = std::get<0>(lhs);
+        int rh_priority = std::get<0>(rhs);
+
+        string lh_date = get<2>(lhs);
+        string rh_date = get<2>(rhs);
+
+        //note: we should be able to use < > operators on strings since they are ISO dates (via javascript)
+        return lh_priority == rh_priority ? lh_date < rh_date  : lh_priority > rh_priority;
     }
 };
 
 
+//TODO: sort by priority first, if priority level is the same, then sort by date, oldest to front
 vector<regex> FindPriorityItems(int priority, vector<string> v, int count, int numberOfRecursiveCalls){
 
        std::vector<regex> ret;
-       std::vector<std::tuple<int, regex>> ints;
+       std::vector<std::tuple<int, regex, string>> ints;
 
        int sze = v.size();
 
@@ -46,8 +55,9 @@ vector<regex> FindPriorityItems(int priority, vector<string> v, int count, int n
              auto j = json::parse(trim(v[i]));
              int pt = j["priority"];
              string uidStr = j["uid"];
+             string dc = j["dateCreated"];
              std::regex reg1(uidStr);
-             ints.push_back(std::make_tuple(pt,reg1));
+             ints.push_back(std::make_tuple(pt,reg1,dc));
         }
 
         // sort ints
@@ -59,8 +69,8 @@ vector<regex> FindPriorityItems(int priority, vector<string> v, int count, int n
         for(std::vector<int>::size_type i = 0; ((unsigned)i) < ((unsigned)size); i++) {
 
             int $priority = std::get<0>(ints[i]);
-
             regex $uid = std::get<1>(ints[i]);
+
              // if we are below the count
              if((size - ((unsigned)i)) <= ((unsigned)count) && ((unsigned)$match) < ((unsigned)count)){
                  $match++;

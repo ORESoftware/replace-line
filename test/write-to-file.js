@@ -1,7 +1,29 @@
+'use strict';
+
+let values = [
+    {
+        num:1,
+        char:'a'
+    },
+    {
+        num:2,
+        char:'b'
+    },
+    {
+        num:1,
+        char:'c'
+    }
+];
 
 
 
-const fs = require('fs');
+// values = values.sort(function(left,right){
+//      return  true;
+// });
+
+values = values.sort(function(left,right){
+    return  left.num > right.num && left.char > right.char;
+});
 
 
-fs.writeFileSync('/home/oleg/dogs.txt','\nbaz\n', {flags:'a',flag:'a'});
+console.log(values);
